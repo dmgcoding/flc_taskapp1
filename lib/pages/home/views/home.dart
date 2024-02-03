@@ -1,5 +1,9 @@
-import 'package:flc_taskapp1/pages/add_task/views/add_task.dart';
 import 'package:flutter/material.dart';
+
+import 'category_card.dart';
+import 'fab.dart';
+import 'selected_category.dart';
+import 'selected_todos_list.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -16,115 +20,32 @@ class _HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (cxt) => const AddTaskPage(),
-          ),
-        ),
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: const FAB(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 22),
         child: ListView(
-          children: [
+          children: const [
             Row(
               children: [
                 Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 12),
-                    margin: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      color: Colors.green,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        '3 Done',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
+                  child: CategoryCard(
+                    text: '3 Done',
+                    color: Colors.green,
                   ),
                 ),
                 Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 12),
-                    margin: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      color: Colors.orange,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        '1 Pending',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
+                  child: CategoryCard(
+                    text: '1 pending',
+                    color: Colors.orange,
                   ),
                 ),
               ],
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-              margin: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: Colors.redAccent,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Center(
-                child: Text(
-                  '5 To Do',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            const Align(
-              child: Text(
-                'All Tasks',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Column(
-              children: [1, 2, 3, 4, 5]
-                  .map(
-                    (e) => Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 8),
-                      margin: const EdgeInsets.symmetric(vertical: 5),
-                      decoration: BoxDecoration(
-                        color: Colors.green.withOpacity(0.7),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Row(
-                        children: [
-                          const SizedBox(width: 12),
-                          const Text('Some task...'),
-                          const Spacer(),
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.edit,
-                              color: Colors.black,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.delete,
-                              color: Colors.red,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                  .toList(),
-            ),
+            CategoryCard(text: '5 To Do', color: Colors.redAccent),
+            SizedBox(height: 20),
+            SelectedCategory(),
+            SizedBox(height: 20),
+            SelectedTodosList(),
           ],
         ),
       ),
