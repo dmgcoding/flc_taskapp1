@@ -18,3 +18,11 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+//create a packages folder
+//go into that folder
+//run flutter/dart command to create a new package
+
+//command
+//flutter create --template=package task_repository
+//dart create --template=package task_repository
