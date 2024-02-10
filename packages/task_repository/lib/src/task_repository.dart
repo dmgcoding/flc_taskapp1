@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:task_repository/task_repository.dart';
 
 class TaskRepository {
@@ -52,5 +53,64 @@ class TaskRepository {
     }
     _tasks = newList;
     _controller.add(_tasks);
+  }
+
+  Color getColorForCategory(TaskCategory category) {
+    switch (category) {
+      case TaskCategory.all:
+        return Colors.pinkAccent;
+      case TaskCategory.done:
+        return Colors.green;
+      case TaskCategory.pending:
+        return Colors.orange;
+      case TaskCategory.todo:
+        return Colors.redAccent;
+    }
+  }
+
+  String getTextForCategory(TaskCategory category, int amount) {
+    switch (category) {
+      case TaskCategory.all:
+        return '$amount';
+      case TaskCategory.done:
+        return '$amount done';
+      case TaskCategory.pending:
+        return '$amount pending';
+      case TaskCategory.todo:
+        return '$amount todos';
+    }
+  }
+
+  int getLengthOfTasksForCategory(TaskCategory cat, List<Task> list) {
+    int length = 0;
+    if (cat == TaskCategory.all) {
+      length = list.length;
+    } else if (cat == TaskCategory.done) {
+      var newList = [];
+      for (var el in list) {
+        if (el.status == TaskStatus.done) {
+          newList.add(el);
+        }
+      }
+      length = newList.length;
+    } else if (cat == TaskCategory.pending) {
+      var newList = [];
+      for (var el in list) {
+        if (el.status == TaskStatus.pending) {
+          newList.add(el);
+        }
+      }
+      length = newList.length;
+    } else if (cat == TaskCategory.todo) {
+      var newList = [];
+      for (var el in list) {
+        if (el.status == TaskStatus.todo) {
+          newList.add(el);
+        }
+      }
+      length = newList.length;
+    }
+
+    return length;
   }
 }
