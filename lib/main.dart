@@ -1,7 +1,10 @@
+import 'package:flc_taskapp1/locator.dart';
 import 'package:flc_taskapp1/pages/home/views/home.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  initializeDependencies();
   runApp(const MyApp());
 }
 
