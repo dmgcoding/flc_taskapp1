@@ -9,19 +9,26 @@ import 'submit_btn.dart';
 import 'text_input.dart';
 
 class AddTaskPage extends StatelessWidget {
-  const AddTaskPage({super.key});
+  const AddTaskPage({this.task, super.key});
+
+  final Task? task;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AddTaskBloc(lc()),
-      child: const _AddTaskView(),
+      create: (context) => AddTaskBloc(lc())..add(SetTaskForEditing(task)),
+      lazy: false,
+      child: _AddTaskView(
+        task: task,
+      ),
     );
   }
 }
 
 class _AddTaskView extends StatelessWidget {
-  const _AddTaskView({super.key});
+  const _AddTaskView({this.task, super.key});
+
+  final Task? task;
 
   @override
   Widget build(BuildContext context) {
@@ -33,24 +40,26 @@ class _AddTaskView extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Add Task'),
+          title: Text(task == null ? 'Add Task' : 'Edit Task'),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 22),
           child: ListView(
-            children: const [
-              SizedBox(height: 20),
-              TextInput(),
-              SizedBox(height: 40),
-              Row(
+            children: [
+              const SizedBox(height: 20),
+              TextInput(
+                task: task,
+              ),
+              const SizedBox(height: 40),
+              const Row(
                 children: [
                   StatusCard(status: TaskStatus.todo),
                   StatusCard(status: TaskStatus.pending),
                   StatusCard(status: TaskStatus.done),
                 ],
               ),
-              SizedBox(height: 40),
-              SubmitBtn(),
+              const SizedBox(height: 40),
+              const SubmitBtn(),
             ],
           ),
         ),

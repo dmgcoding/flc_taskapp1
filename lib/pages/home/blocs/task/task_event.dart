@@ -16,3 +16,8 @@ final class SetAllTasks extends TaskEvent {
   SetAllTasks(this.tasks);
   final List<Task> tasks;
 }
+
+final class DeleteTask extends TaskEvent {
+  DeleteTask(this.taskId);
+  final String taskId;
+}
