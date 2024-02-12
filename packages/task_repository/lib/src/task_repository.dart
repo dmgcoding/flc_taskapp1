@@ -40,6 +40,8 @@ class TaskRepository {
       }
     }
 
+    print(_tasks.length);
+
     _tasks = newList;
     _controller.add(_tasks);
   }
@@ -65,6 +67,28 @@ class TaskRepository {
         return Colors.orange;
       case TaskCategory.todo:
         return Colors.redAccent;
+    }
+  }
+
+  Color getColorForTaskStatus(TaskStatus category) {
+    switch (category) {
+      case TaskStatus.done:
+        return Colors.green;
+      case TaskStatus.pending:
+        return Colors.orange;
+      case TaskStatus.todo:
+        return Colors.redAccent;
+    }
+  }
+
+  String getTextForTaskStatus(TaskStatus status) {
+    switch (status) {
+      case TaskStatus.todo:
+        return 'todo';
+      case TaskStatus.done:
+        return 'done';
+      case TaskStatus.pending:
+        return 'pending';
     }
   }
 
