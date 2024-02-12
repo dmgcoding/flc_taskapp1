@@ -6,8 +6,8 @@ enum FormStatus {
   error,
 }
 
-final class AddTaskState {
-  AddTaskState({
+final class AddTaskState extends Equatable {
+  const AddTaskState({
     this.task = '',
     this.taskStatus = TaskStatus.todo,
     this.status = FormStatus.initial,
@@ -30,4 +30,7 @@ final class AddTaskState {
         status: status ?? this.status,
         isLoading: isLoading ?? this.isLoading,
       );
+
+  @override
+  List<Object?> get props => [task, taskStatus, status, isLoading];
 }
