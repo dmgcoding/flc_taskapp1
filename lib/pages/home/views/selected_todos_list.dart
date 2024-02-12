@@ -13,7 +13,9 @@ class SelectedTodosList extends StatelessWidget {
   List<Task> getTasksForCategory(List<Task> allTasks, TaskCategory cat) {
     List<Task> filtered = [];
     for (var t in allTasks) {
-      if (cat == TaskCategory.done) {
+      if (cat == TaskCategory.all) {
+        filtered.add(t);
+      } else if (cat == TaskCategory.done) {
         if (t.status == TaskStatus.done) {
           filtered.add(t);
         }
@@ -48,7 +50,7 @@ class SelectedTodosList extends StatelessWidget {
         return Column(
           children: filteredList
               .map(
-                (e) => const TaskCard(),
+                (e) => TaskCard(e),
               )
               .toList(),
         );

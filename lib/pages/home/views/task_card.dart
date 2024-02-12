@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:task_repository/task_repository.dart';
 
 class TaskCard extends StatelessWidget {
-  const TaskCard({
+  const TaskCard(
+    this.task, {
     super.key,
   });
+
+  final Task task;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +21,7 @@ class TaskCard extends StatelessWidget {
       child: Row(
         children: [
           const SizedBox(width: 12),
-          const Text('Some task...'),
+          Text(task.task),
           const Spacer(),
           IconButton(
             onPressed: () {},
