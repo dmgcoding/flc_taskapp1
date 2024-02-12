@@ -14,3 +14,8 @@ final class ChangeTaskStatus extends AddTaskEvent {
 }
 
 final class Submit extends AddTaskEvent {}
+
+final class SetTaskForEditing extends AddTaskEvent {
+  SetTaskForEditing(this.task);
+  final Task? task;
+}

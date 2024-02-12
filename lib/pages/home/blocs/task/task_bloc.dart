@@ -10,6 +10,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     //register callbacks for each event
     on<SetAllTasks>(_getAllTasks);
     on<SelectCategory>(_selectCategory);
+    on<DeleteTask>(_deleteTodo);
 
     //listen to task stream from task repository
     taskRepository.allTodos.listen((todosList) {
@@ -18,6 +19,10 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   }
 
   final TaskRepository taskRepository;
+
+  void _deleteTodo(DeleteTask event, Emitter<TaskState> emit) {
+    taskRepository.deleteTask(event.taskId);
+  }
 
   //callback for SetAllTasks event
   void _getAllTasks(SetAllTasks event, Emitter<TaskState> emit) {

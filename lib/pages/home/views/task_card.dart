@@ -1,4 +1,7 @@
+import 'package:flc_taskapp1/pages/add_task/add_task.dart';
+import 'package:flc_taskapp1/pages/home/blocs/task/task_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_repository/task_repository.dart';
 
 class TaskCard extends StatelessWidget {
@@ -24,14 +27,25 @@ class TaskCard extends StatelessWidget {
           Text(task.task),
           const Spacer(),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (cxt) => AddTaskPage(
+                    task: task,
+                  ),
+                ),
+              );
+            },
             icon: const Icon(
               Icons.edit,
               color: Colors.black,
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              context.read<TaskBloc>().add(DeleteTask(task.taskId));
+            },
             icon: const Icon(
               Icons.delete,
               color: Colors.red,

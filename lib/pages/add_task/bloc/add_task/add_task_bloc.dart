@@ -13,9 +13,16 @@ class AddTaskBloc extends Bloc<AddTaskEvent, AddTaskState> {
     on<ChangeTaskValue>(_changeTaskValue);
     on<ChangeTaskStatus>(_changeTaskStatus);
     on<Submit>(_submit);
+    on<SetTaskForEditing>(_setTaskForEditing);
   }
 
   final TaskRepository taskRepository;
+
+  void _setTaskForEditing(SetTaskForEditing event, Emitter<AddTaskState> emit) {
+    final task = event.task;
+    if (task == null) return;
+    emit(state.copyWith(taskToEdit: task, taskStatus: task.status));
+  }
 
   void _changeTaskValue(ChangeTaskValue event, Emitter<AddTaskState> emit) {
     final newValue = event.task;
@@ -31,11 +38,20 @@ class AddTaskBloc extends Bloc<AddTaskEvent, AddTaskState> {
   void _submit(Submit event, Emitter<AddTaskState> emit) {
     //isloading = true
     emit(state.copyWith(isLoading: true));
-    //add new task
-    final taskId = Random().nextInt(100000).toString();
-    final newTask =
-        Task(taskId: taskId, task: state.task, status: state.taskStatus);
-    taskRepository.addTask(newTask);
+    if (state.taskToEdit != null) {
+      final updatedTask = Task(
+        taskId: state.taskToEdit!.taskId,
+        task: state.task,
+        status: state.taskStatus,
+      );
+      taskRepository.editTask(updatedTask);
+    } else {
+      //add new task
+      final taskId = Random().nextInt(100000).toString();
+      final newTask =
+          Task(taskId: taskId, task: state.task, status: state.taskStatus);
+      taskRepository.addTask(newTask);
+    }
     //if success emit success state
     emit(state.copyWith(status: FormStatus.success, isLoading: false));
   }

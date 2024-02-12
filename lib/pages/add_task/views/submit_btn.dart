@@ -19,10 +19,14 @@ class SubmitBtn extends StatelessWidget {
             color: Colors.blue,
             borderRadius: BorderRadius.circular(12),
           ),
-          child: const Center(
-            child: Text(
-              'Add new todo',
-              style: TextStyle(color: Colors.white),
+          child: Center(
+            child: BlocBuilder<AddTaskBloc, AddTaskState>(
+              builder: (context, state) {
+                return Text(
+                  state.taskToEdit != null ? 'Edit task' : 'Add new todo',
+                  style: const TextStyle(color: Colors.white),
+                );
+              },
             ),
           ),
         ),
